@@ -1,0 +1,101 @@
+/* Reset de margens e preenchimentos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.layoutContainer {
+  display: flex;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.navigationSidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Alinha os itens no centro */
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.952); /* Fundo escuro com opacidade */
+  background-image: url('../assets/img/CrossFit2.png'); /* Imagem de fundo */
+  background-size: cover; /* Faz com que a imagem cubra todo o espaço */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Não repete a imagem */
+  color: #fff;
+  padding: 20px;
+  height: 100vh; /* Altura total da viewport */
+}
+
+.areadeConteudo {
+  background-color: #dfdfdf;
+  flex: 8;
+  overflow-y: auto;
+}
+
+.button {
+  background-color: #3a3a3a85;
+  color: white;
+  width: 200px;
+  margin-top:20px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #66666685;
+  color: white;
+  width: 180px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonlist:hover {
+  background-color: #e5a904; /* Cor de fundo mais escura no hover */
+  transform: scale(1.05); /* Aumenta levemente o botão */
+}
+
+/* Efeito de clique */
+.buttonlist:active {
+  background-color: #d19702; /* Cor mais escura ao clicar */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.divbuttonlist {
+
+  background-color: #3a3a3a85;
+  border-radius: 8px;
+}
+
+
+/* Efeito de hover */
+.button:hover {
+  background-color: #e5a904; /* Cor de fundo mais escura no hover */
+  transform: scale(1.05); /* Aumenta levemente o botão */
+}
+
+/* Efeito de clique */
+.button:active {
+  background-color: #d19702; /* Cor mais escura ao clicar */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}

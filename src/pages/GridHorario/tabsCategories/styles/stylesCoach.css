@@ -1,0 +1,67 @@
+.header-top{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 50px;
+    gap: 100px;
+
+}
+
+.fotoPerfil {
+    width: 150px;  /* Adicione uma largura fixa */
+    height: 150px; /* Adicione uma altura fixa */
+    overflow: hidden; /* Esconde partes da imagem que extrapolam a área */
+    border-radius: 50%; /* Torna a div circular */
+}
+
+.fotoPerfil img {
+    width: 100%;  /* Faz com que a imagem preencha toda a div */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.gridhorario {
+    margin-top: 30px;
+    background-color: rgba(242, 205, 19, 0.52);
+    border-radius: 10px;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    padding: 10px;
+}
+
+
+button {
+    display: flex;
+    align-items: center;
+}
+
+button svg {
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+}
+
+.horarios {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.horarios select,
+.horarios input {
+    border: 2px solid #7D7D7D; /* Borda cinza */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 5px 8px; /* Espaçamento interno */
+    margin-right: 10px; /* Espaço entre o select e o input */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: border-color 0.3s; /* Transição suave para a borda */
+    width: 100px;
+    height: 30px;
+}
+
+.horarios select:focus,
+.horarios input:focus {
+    border-color: #000000; /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
+}

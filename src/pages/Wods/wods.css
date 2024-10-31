@@ -1,0 +1,70 @@
+.header-a {
+    background-Color: #e7e7e7;
+    color: #000000;
+    width: 95%;
+    border-radius: 10px;
+    padding: 10px;
+    text-Align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.178);
+}
+
+.titulo {
+    font-Size: 20px;
+}
+
+.formSectiontop {
+    display: flex;
+    justify-content: center;
+}
+
+.formSect {
+    display: flex;
+    justify-content: center;
+}
+
+.inputText {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+.inputForm{
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    width: 10rem;
+    height: 2.5rem;
+}
+
+.exercicio {
+    display: flex;
+    justify-Content: space-between;
+    align-Items: center;
+}
+
+.deleteButton {
+    background-Color: #F2B705;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.addButton {
+    background-Color: #F2B705;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-Right: 10px;
+    border-radius: 8px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-Align: center;
+    margin-Bottom: 20px;
+}
