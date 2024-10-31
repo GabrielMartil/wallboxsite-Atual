@@ -34,9 +34,6 @@ export function Pedro() {
                         />
                     </div>
                 </div>
-                <div className="gridhorario">
-
-                </div>
             </section>
         </div>
     );
