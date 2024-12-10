@@ -46,7 +46,6 @@ export default function Financeiro() {
 
             <div style={{ display: "flex", justifyContent: "flex-start", marginTop: 30 }}>
             <div style={{ display: "flex", justifyContent: "center", gap: 50 }}>
-                {/* Gráfico de Pizza */}
                 <div>
                     <Paper elevation={5} style={{ padding: '20px', borderRadius: 10 }}>
                         <h2 style={{ textAlign: 'center', marginBottom: 10 }}>Total de Alunos por Status</h2>
@@ -56,7 +55,6 @@ export default function Financeiro() {
                                 height={250}
                                 width={250}
                             />
-                            {/* Legenda Manual */}
                             <div style={{ marginTop: 10, textAlign: 'center' }}>
                                 {dataReceitas.map(({ categoria, valor }, index) => (
                                     <div key={index} style={{ display: 'flex', justifyContent: 'center', gap: 10 }}>
@@ -68,7 +66,6 @@ export default function Financeiro() {
                     </Paper>
                 </div>
 
-                {/* Gráfico de Barras */}
                 <div>
                     <Paper elevation={5} style={{ padding: '20px', borderRadius: 10 }}>
                         <h2 style={{ textAlign: 'center', marginBottom: 10 }}>Medição de Planos</h2>
