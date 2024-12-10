@@ -1,29 +1,76 @@
+import { useState } from "react";
 import "./styles.css";
-import {
-    TextField,
-    Divider,
-    Avatar,
-    Autocomplete
-} from "@mui/material";
+import { TextField, Avatar, Autocomplete, Divider } from "@mui/material";
+import axios from "axios"; // Importe o axios
 
 export function Cadastro() {
+    const [selectedGenero, setSelectedGenero] = useState<{ label: string; id: number } | null>(null);
+    const [selectedModalidade, setSelectedModalidade] = useState<{ label: string; id: number } | null>(null);
+    const [selectedPlano, setSelectedPlano] = useState<{ label: string; id: number } | null>(null);
+
     const opcoesGenero = [
-        { label: 'Masculino', id: 1 },
-        { label: 'Feminino', id: 2 },
-        { label: 'Outro', id: 3 },
+        { label: "Masculino", id: 1 },
+        { label: "Feminino", id: 2 },
+        { label: "Outro", id: 3 },
     ];
 
     const opcoesPlano = [
-        { label: 'Mensal', id: 1 },
-        { label: 'Semestral', id: 2 },
-        { label: 'Anual', id: 3 },
+        { label: "Mensal", id: 1 },
+        { label: "Semestral", id: 2 },
+        { label: "Anual", id: 3 },
     ];
 
     const opcoesModalidade = [
-        { label: 'CrossFit', id: 1 },
-        { label: 'Musculação', id: 2 },
-        { label: 'Musculação / CrossFit', id: 3 },
+        { label: "CrossFit", id: 1 },
+        { label: "Musculação", id: 2 },
+        { label: "Musculação / CrossFit", id: 3 },
     ];
+
+    const handleSubmit = async () => {
+        const nomeElement = document.getElementById("nome") as HTMLInputElement;
+        const cpfElement = document.getElementById("cpf") as HTMLInputElement;
+        const dataNascimentoElement = document.getElementById("data-nascimento") as HTMLInputElement;
+        const telefoneElement = document.getElementById("telefone") as HTMLInputElement;
+        const emailElement = document.getElementById("email") as HTMLInputElement;
+
+        // Validação básica dos campos
+        if (!nomeElement.value || !emailElement.value || !cpfElement.value) {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        // Usando o estado para pegar os valores dos campos de seleção
+        const formData = {
+            nome: nomeElement.value,
+            cpf: cpfElement.value,
+            dataNascimento: dataNascimentoElement.value,
+            genero: selectedGenero?.label,  // Usando o ID do gênero selecionado
+            telefone: telefoneElement.value,
+            email: emailElement.value,
+            modalidade: selectedModalidade?.label,  // Usando o ID da modalidade selecionada
+            plano: selectedPlano?.label,  // Usando o ID do plano selecionado
+        };
+
+        try {
+            const response = await axios.post("https://api-wallbox.onrender.com/Cadastro", formData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            console.log("Resposta do servidor:", response.data);
+
+            if (response.status === 201) { // Alterado para o código correto de criação de recurso
+                alert(response.data.message || "Cadastro realizado com sucesso!");
+            } else {
+                alert("Erro: " + (response.data.message || "Erro desconhecido"));
+            }
+        } catch (error) {
+            console.error("Erro ao se conectar ao servidor:", error);
+            alert("Erro ao se conectar ao servidor.");
+        }
+    };
+
     return (
         <div>
             <header>
@@ -50,7 +97,7 @@ export function Cadastro() {
                     </div>
 
 
-                    <section style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} >
+                    <section style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <div className="inputcadastro">
                                 <div className="inputText">
@@ -106,9 +153,7 @@ export function Cadastro() {
                                                 InputLabelProps={{ shrink: true }}
                                             />
                                         )}
-                                        onChange={(_event, value) => {
-                                            console.log(value); // Você pode armazenar o valor selecionado aqui
-                                        }}
+                                        onChange={(_event, value) => setSelectedGenero(value)}
                                         sx={{
                                             width: '10rem',
                                             '& .MuiOutlinedInput-root': { height: '2.5rem' }
@@ -145,23 +190,23 @@ export function Cadastro() {
                             </div>
                             <div className="inputForm">
                                 <Autocomplete
-                                    disablePortal
                                     options={opcoesModalidade}
                                     getOptionLabel={(option) => option.label}
+                                    onChange={(_event, value) => {
+                                        setSelectedModalidade(value);  // Agora o valor de `value` será do tipo `{ label: string; id: number } | null`
+                                    }}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            label="Modalidade"
-                                            placeholder="Modalidade"
+                                            label="Mobilidade"
+                                            variant="outlined"
                                             margin="normal"
                                             fullWidth
-                                            variant="outlined"
+                                            placeholder="Mobilidade"
                                             InputLabelProps={{ shrink: true }}
+                                            
                                         />
                                     )}
-                                    onChange={(_event, value) => {
-                                        console.log(value);
-                                    }}
                                     sx={{
                                         width: '16rem',
                                         '& .MuiOutlinedInput-root': { height: '2.5rem' }
@@ -183,16 +228,13 @@ export function Cadastro() {
                                             InputLabelProps={{ shrink: true }}
                                         />
                                     )}
-                                    onChange={(_event, value) => {
-                                        console.log(value); // Você pode armazenar o valor selecionado aqui
-                                    }}
+                                    onChange={(_event, value) => setSelectedPlano(value)}
                                     sx={{
                                         width: '10rem',
                                         '& .MuiOutlinedInput-root': { height: '2.5rem' }
                                     }}
                                 />
                             </div>
-
                         </div>
                     </section>
                 </div>
@@ -495,6 +537,7 @@ export function Cadastro() {
 
                     <button
                         type="submit"
+                        onClick={handleSubmit}
                         style={{
                             padding: "10px 20px",
                             fontSize: "16px",

@@ -22,11 +22,11 @@ export function Layout() {
   const backgroundColor = () => {
     switch (location.pathname) {
       case '/Alunos':
-        return TEMAS.colors.gray[300];
+        return TEMAS.colors.gray[400];
       case '/Financeiro':
-        return TEMAS.colors.gray[300];
+        return TEMAS.colors.gray[400];
       default:
-        return '#dfdfdf'; // Cor padrão
+        return '#dfdfdf';
     }
   };
 
