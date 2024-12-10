@@ -11,7 +11,7 @@ import Financeiro from "../pages/Dashboard/Financeiro/Financeiro";
 
 export function RoutesPages() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/wallboxsite-Atual">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Wods />} />

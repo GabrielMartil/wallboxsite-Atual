@@ -10,7 +10,7 @@ export function Paty(){
                         <img src={img} alt="foto-perfil" />
                     </div>
                     <div>
-                        <h1> Coach: Paty </h1>
+                        <h1> Coach: Paty Alcantara </h1>
                     </div>
                 </header>
             </div>
