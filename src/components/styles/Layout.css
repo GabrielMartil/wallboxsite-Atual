@@ -25,10 +25,6 @@ html, body {
   align-items: center; /* Alinha os itens no centro */
   flex: 1;
   background-color: rgba(0, 0, 0, 0.952); /* Fundo escuro com opacidade */
-  background-image: url('../assets/img/CrossFit2.png'); /* Imagem de fundo */
-  background-size: cover; /* Faz com que a imagem cubra todo o espaço */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Não repete a imagem */
   color: #fff;
   padding: 20px;
   height: 100vh; /* Altura total da viewport */

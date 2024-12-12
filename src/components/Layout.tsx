@@ -7,16 +7,11 @@ import { TEMAS } from '../assets/styles/Colors';
 
 export function Layout() {
   const [showMembers, setShowMembers] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
   const navigate = useNavigate(); // Hook para navegação
 
   // Função para alternar a exibição do dropdown
   const toggleMembers = () => {
     setShowMembers(!showMembers);
-  };
-
-  const toggleDashboard = () => {
-    setShowDashboard(!showDashboard);
   };
 
   const backgroundColor = () => {
@@ -38,34 +33,6 @@ export function Layout() {
             <img src={logo2} alt="Logo 2" />
           </div>
           <div>
-            <div className='divbuttonlist'>
-              <ButtonGroup vertical >
-                <button className="button" onClick={toggleDashboard}>
-                Dashboard
-                </button>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  {showDashboard && (
-                    <ListGroup variant="flush">
-                      <ListGroup.Item
-                        action
-                        onClick={() => navigate('/Alunos')}
-                        className="buttonlist"
-                      >
-                        Alunos
-                      </ListGroup.Item>
-                      <ListGroup.Item
-                        action
-                        onClick={() => navigate('/Financeiro')}
-                        className="buttonlist"
-                      >
-                        Financeiro
-                      </ListGroup.Item>
-                    </ListGroup>
-                  )}
-                </div>
-              </ButtonGroup>
-            </div>
-
             <button className="button" onClick={() => navigate('/')}>
               Wods
             </button>
@@ -91,6 +58,13 @@ export function Layout() {
                         className="buttonlist"
                       >
                         Cadastrar Aluno
+                      </ListGroup.Item>
+                      <ListGroup.Item
+                        action
+                        onClick={() => navigate('/Medicoes')}
+                        className="buttonlist"
+                      >
+                        Medições de Alunos
                       </ListGroup.Item>
                     </ListGroup>
                   )}

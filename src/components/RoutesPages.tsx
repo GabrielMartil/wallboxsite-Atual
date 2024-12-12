@@ -3,11 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Wods } from "../pages/Wods";
 import { Members } from "../pages/Members";
 import { GridHorario } from "../pages/GridHorario";
-import { Layout } from "./Layout";
+import { Layout } from "../components/Layout";
 import { Cadastro } from "../pages/Members/pages/Cadastro";
-import { Alunos} from "../pages/Dashboard/Alunos/Alunos";
 import { Equipamentos } from "../pages/Equipment";
-import Financeiro from "../pages/Dashboard/Financeiro/Financeiro";
+import { MedicoesAlunos } from "../pages/Members/pages/Medicoes";
 
 export function RoutesPages() {
   return (
@@ -15,10 +14,9 @@ export function RoutesPages() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Wods />} />
-          <Route path="Alunos" element={<Alunos/>} />
-          <Route path="Financeiro" element={<Financeiro />} />
           <Route path="Members" element={<Members />} />
           <Route path="Cadastro" element={<Cadastro />} />
+          <Route path="Medicoes" element={<MedicoesAlunos />} />
           <Route path="gradehoraria" element={<GridHorario />} />
           <Route path="Equipamentos" element={<Equipamentos />} />
         </Route>

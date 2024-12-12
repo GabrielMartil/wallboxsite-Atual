@@ -46,7 +46,7 @@ export function Liana() {
                     <img src={img} alt="foto-perfil" />
                 </div>
                 <div>
-                    <h1> Coach: Pedro Yago </h1>
+                    <h1> Coach: Liana Fernandes </h1>
                 </div>
             </header>
 

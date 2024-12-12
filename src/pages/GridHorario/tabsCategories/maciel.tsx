@@ -46,7 +46,7 @@ export function Maciel() {
                     <img src={img} alt="foto-perfil" />
                 </div>
                 <div>
-                    <h1> Coach: Pedro Yago </h1>
+                    <h1> Coach: Maciel </h1>
                 </div>
             </header>
 

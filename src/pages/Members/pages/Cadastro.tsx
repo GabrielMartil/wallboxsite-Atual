@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 import { TextField, Avatar, Autocomplete, Divider } from "@mui/material";
 import axios from "axios"; // Importe o axios
 
 export function Cadastro() {
+    const [cpf, setCpf] = useState('');
     const [selectedGenero, setSelectedGenero] = useState<{ label: string; id: number } | null>(null);
     const [selectedModalidade, setSelectedModalidade] = useState<{ label: string; id: number } | null>(null);
     const [selectedPlano, setSelectedPlano] = useState<{ label: string; id: number } | null>(null);
@@ -26,9 +27,50 @@ export function Cadastro() {
         { label: "Musculação / CrossFit", id: 3 },
     ];
 
+    function formatCPF(cpf: string) {
+        return cpf
+            .replace(/\D/g, '')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1-$2')
+            .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    }
+
+    useEffect(() => {
+        const cpfElement = document.getElementById('cpf') as HTMLInputElement;
+        if (cpfElement) {
+            cpfElement.addEventListener('input', (event) => {
+                const target = event.target as HTMLInputElement;
+                if (target) {
+                    let value = target.value;
+                    value = formatCPF(value);
+                    target.value = value;
+                    setCpf(value);  // Atualizando o estado com o CPF formatado
+                }
+            });
+        }
+
+        return () => {
+            if (cpfElement) {
+                cpfElement.removeEventListener('input', () => { });
+            }
+        };
+    }, []);
     const handleSubmit = async () => {
-        const nomeElement = document.getElementById("nome") as HTMLInputElement;
+
         const cpfElement = document.getElementById("cpf") as HTMLInputElement;
+        if (!cpfElement) {
+            alert("Erro: Campo CPF não encontrado.");
+            return;
+        }
+
+        let cpfLimpo = cpfElement.value.replace(/\D/g, '');
+
+        if (cpfLimpo.length !== 11) {
+            alert('Por favor, insira um CPF válido.');
+            return;
+        }
+        const nomeElement = document.getElementById("nome") as HTMLInputElement;
         const dataNascimentoElement = document.getElementById("data-nascimento") as HTMLInputElement;
         const telefoneElement = document.getElementById("telefone") as HTMLInputElement;
         const emailElement = document.getElementById("email") as HTMLInputElement;
@@ -42,7 +84,7 @@ export function Cadastro() {
         // Usando o estado para pegar os valores dos campos de seleção
         const formData = {
             nome: nomeElement.value,
-            cpf: cpfElement.value,
+            cpf: cpfLimpo,
             dataNascimento: dataNascimentoElement.value,
             genero: selectedGenero?.label,  // Usando o ID do gênero selecionado
             telefone: telefoneElement.value,
@@ -118,6 +160,9 @@ export function Cadastro() {
                                         id="cpf"
                                         label="CPF"
                                         variant="outlined"
+                                        value={cpf}
+                                        onChange={(e) => setCpf(e.target.value)}
+                                        inputProps={{ maxLength: 14 }}
                                         fullWidth
                                         margin="normal"
                                         placeholder="Digite o CPF"
@@ -204,7 +249,7 @@ export function Cadastro() {
                                             fullWidth
                                             placeholder="Mobilidade"
                                             InputLabelProps={{ shrink: true }}
-                                            
+
                                         />
                                     )}
                                     sx={{
@@ -238,9 +283,6 @@ export function Cadastro() {
                         </div>
                     </section>
                 </div>
-
-                <Divider style={{ marginTop: "30px" }} />
-
                 <section style={{ display: "flex", justifyContent: "center", marginTop: 20, flexDirection: "column" }} >
 
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 20, marginTop: 20 }}>
@@ -341,190 +383,14 @@ export function Cadastro() {
 
                 <Divider style={{ marginTop: "30px" }} />
 
-                <section style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 20, marginTop: 20 }}>
-                        <h1 style={{ textAlign: "center" }}>Medições do Aluno</h1>
-                    </div>
-
-                    <div style={{ display: "flex" }}>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="peso"
-                                    label="Peso (kg)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite seu peso"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                            <div className="inputText">
-                                <TextField
-                                    id="altura"
-                                    label="Altura (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite sua altura"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style={{ display: "flex" }}>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="peito"
-                                    label="Peito (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida do peito"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                            <div className="inputText">
-                                <TextField
-                                    id="abdomen"
-                                    label="Abdômen (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="quadril"
-                                    label="Quadril (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{ display: "flex" }}>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="braco_bicipes_esquerdo"
-                                    label="Braço . E (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="braco_bicipes_direito"
-                                    label="Braço . D (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{ display: "flex" }}>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="coxa_esquerda"
-                                    label="Coxa . E (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                        <div className="inputText">
-                            <TextField
-                                id="coxa_direita"
-                                label="Coxa . D (cm)"
-                                variant="outlined"
-                                fullWidth
-                                margin="normal"
-                                placeholder="Digite a medida"
-                                InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                InputLabelProps={{ shrink: true }}
-                                type="number"
-                            />
-                        </div>
-                    </div>
-                    <div style={{ display: "flex" }}>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="panturrilha_esquerda"
-                                    label="Panturrilha . E (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                        <div className="inputcadastro">
-                            <div className="inputText">
-                                <TextField
-                                    id="panturrilha_direita"
-                                    label="Panturrilha . D (cm)"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    placeholder="Digite a medida"
-                                    InputProps={{ style: { height: '2.5rem', width: '10rem' } }}
-                                    InputLabelProps={{ shrink: true }}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <div style={{ display: "flex", justifyContent: "center", marginTop: 30, gap: 20, marginBottom: 100 }}>
                     <button
                         type="submit"
+                        onClick={handleSubmit}
                         style={{
                             padding: "10px 20px",
                             fontSize: "16px",
-                            backgroundColor: "#4CAF50",
+                            backgroundColor: "#2e7230",
                             color: "white",
                             border: "none",
                             borderRadius: "5px",
@@ -537,18 +403,17 @@ export function Cadastro() {
 
                     <button
                         type="submit"
-                        onClick={handleSubmit}
                         style={{
                             padding: "10px 20px",
                             fontSize: "16px",
-                            backgroundColor: "#4CAF50",
+                            backgroundColor: "#705c00",
                             color: "white",
                             border: "none",
                             borderRadius: "5px",
                             cursor: "pointer"
                         }}
                     >
-                        Salvar
+                        Atualizar
 
                     </button>
                 </div>
